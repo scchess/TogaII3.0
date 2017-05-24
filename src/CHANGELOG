@@ -1,0 +1,9 @@
+22/10/2008 
+- added LICENSE file taken from
+http://www.superchessengine.com/toga_ii.htm
+- added COPYING file
+- fix for small opening book handling bug; see
+http://www.computerchess.info/tdbb/phpBB3/viewtopic.php?f=9&t=177
+- eliminated use of sem_init and friends; these do not work
+properly on MACOSX; see
+http://64.68.157.89/forum/viewtopic.php?t=24108&postdays=0&postorder=asc&topic_view=&start=30

@@ -1,0 +1,56 @@
+
+# files
+
+EXE = cyclone2
+
+OBJS = move.o main.o hash.o see.o config.o search_root.o util.o pawn.o sort.o \
+       valid_move.o input.o piece.o material.o check.o evasion.o make_move.o \
+       board.o move_list.o fen.o values.o search.o interface.o draw.o square.o \
+       evaluate.o position.o random.o attack.o pv.o distance.o transposition.o \
+       probe.o move_gen.o
+
+# rules
+
+all: $(EXE) .depend
+
+clean:
+	$(RM) *.o .depend gmon.out $(EXE) $(EXE).intel *~
+
+# general
+
+CXX      = gcc
+CXXFLAGS = -pipe
+LDFLAGS  = -lm -ldl -lpthread
+
+# C++
+
+CXXFLAGS += -O3 -fno-exceptions -fno-rtti -Wall
+
+# optimisation
+
+CXXFLAGS +=  -fstrict-aliasing
+CXXFLAGS += -fomit-frame-pointer
+# CXXFLAGS += -march=athlon-xp # SELECT ME
+# CXXFLAGS += -march=pentium4 
+
+# profiling
+
+#CXXFLAGS += -fprofile-generate
+#LDFLAGS  += -fprofile-generate
+#CXXFLAGS += -fprofile-use
+
+
+# strip
+
+LDFLAGS += -s
+
+# dependencies
+
+$(EXE): $(OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
+
+.depend:
+	$(CXX) -MM $(OBJS:.o=.cpp) > $@
+
+include .depend
+
